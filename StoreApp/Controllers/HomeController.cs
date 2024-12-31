@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StoreApp.Data.Abstract;
 using StoreApp.Models;
 
@@ -7,6 +8,7 @@ namespace StoreApp.Controllers
 {
     public class HomeController : Controller
     {
+        public int pageSize = 2;
         private readonly ILogger<HomeController> _logger;
         private readonly IStoreRepository _storeRepository;
 
@@ -16,33 +18,29 @@ namespace StoreApp.Controllers
             _storeRepository = storeRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var products = _storeRepository.Products.Select(p => new ProductViewModel
-            {
-                ProductId = p.ProductId,
-                Name = p.Name,
-                Category = p.Category,
-                Description = p.Description,
-                Price = p.Price,
-            }).ToList();
+            var products = await _storeRepository
+                .Products
+                .Skip((page - 1) * pageSize)
+                .Select(p =>
+                new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Category = p.Category,
+                    Description = p.Description,
+                    Price = p.Price,
+                }).Take(pageSize).ToListAsync();
             return View(new ProductListViewModel
             {
-                Products=products
+                Products = products,
+                PageInfo = new PageInfo()
+                {
+                    ItemsPerPage = pageSize,
+                    TotalItems = _storeRepository.Products.Count()
+                }
             });
-
-
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
