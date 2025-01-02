@@ -8,7 +8,7 @@ namespace StoreApp.Controllers
 {
     public class HomeController : Controller
     {
-        public int pageSize = 2;
+        public int pageSize = 12;
         private readonly ILogger<HomeController> _logger;
         private readonly IStoreRepository _storeRepository;
 
@@ -42,5 +42,8 @@ namespace StoreApp.Controllers
                 }
             });
         }
+
+
+
     }
 }
