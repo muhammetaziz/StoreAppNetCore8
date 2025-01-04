@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-2 bg-danger">
-        Kategoriler burada bulunacak
+        <vc:categories/>
     </div>
     <div class="col-md-10">
 
@@ -38,12 +38,40 @@
                 }
             </div>
 
-            <div class="pagination">
-                @for (var i = 1; i <= Model.PageInfo.TotalPages; i++)
-                {
-                    <a href="/?page=@i">@i</a>
-                }
-            </div>
+            @* Pagination *@
+            @{
+                int currentPage = ViewBag.currentPage ?? 1; // Varsayılan olarak 1. sayfa
+                int totalPages = Model.PageInfo.TotalPages;
+
+                int prev = currentPage > 1 ? currentPage - 1 : 1; // En düşük sayfa 1
+                int next = currentPage < totalPages ? currentPage + 1 : totalPages + 1; // En yüksek sayfa toplam sayfalar
+            }
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <!-- Previous Button -->
+                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="/?page=@prev" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    @for (var i = 1; i <= totalPages + 1; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a class="page-link" href="/?page=@i">@i</a>
+                        </li>
+                    }
+
+                    <!-- Next Button -->
+                    <li class="page-item @(currentPage == totalPages+1 ? "disabled" : "")">
+                        <a class="page-link" href="/?page=@next" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
 
             @*<div page-model="@Model.PageInfo" page-action="Index"></div>*@
 

@@ -32,13 +32,15 @@ namespace StoreApp.Controllers
                     Description = p.Description,
                     Price = p.Price,
                 }).Take(pageSize).ToListAsync();
+            ViewBag.currentPage = page;
             return View(new ProductListViewModel
-            {
+            { 
                 Products = products,
                 PageInfo = new PageInfo()
                 {
                     ItemsPerPage = pageSize,
-                    TotalItems = _storeRepository.Products.Count()
+                    TotalItems = _storeRepository.Products.Count(),
+                    CurrentPage=page,
                 }
             });
         }

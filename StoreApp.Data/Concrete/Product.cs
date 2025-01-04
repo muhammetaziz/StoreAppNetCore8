@@ -13,7 +13,7 @@ namespace StoreApp.Data.Concrete
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string ProductImage { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
+        public Category Category { get; set; }
 
     }
 }
