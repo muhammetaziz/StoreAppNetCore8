@@ -18,6 +18,8 @@ namespace StoreApp.Data.Concrete
 
         public IQueryable<Product> Products => _context.Products;
 
+        public IQueryable<Category> Categories => _context.Categories;
+
         public void CreateProduct(Product entity)
         {
             _context.Products.Add(entity);

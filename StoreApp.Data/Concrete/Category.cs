@@ -8,10 +8,10 @@ namespace StoreApp.Data.Concrete
 {
     public class Category
     {
-        public int CategoryID { get; set; }
-        public string CategoryName { get; set; }=string.Empty;
-        public string CategoryDescription { get; set; }= string.Empty;
-        public int ProductID { get; set; }
-
+        public int CategoryId { get; set; }
+        public string Name { get; set; }=string.Empty;
+        public string Description { get; set; }= string.Empty;
+        public string Url { get; set; }=string.Empty ;// Arama Yapma için.
+        public List<Product> Products { get; set; } = new();
     }
 }

@@ -18,7 +18,7 @@ namespace StoreApp.Controllers
             _storeRepository = storeRepository;
         }
 
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1 )
         {
             var products = await _storeRepository
                 .Products
@@ -28,7 +28,6 @@ namespace StoreApp.Controllers
                 {
                     ProductId = p.ProductId,
                     Name = p.Name,
-                    Category = p.Category,
                     Description = p.Description,
                     Price = p.Price,
                 }).Take(pageSize).ToListAsync();
@@ -46,6 +45,6 @@ namespace StoreApp.Controllers
         }
 
 
-
+        
     }
 }
