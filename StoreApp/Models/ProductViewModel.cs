@@ -9,7 +9,6 @@ namespace StoreApp.Models
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string ProductImage { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
     }
 }
 
@@ -23,5 +22,5 @@ public class PageInfo
     public int TotalItems { get; set; }
     public int ItemsPerPage { get; set; }
     public int CurrentPage { get; set; }
-    public int TotalPages => (int)Math.Ceiling((decimal)(TotalItems / ItemsPerPage));
+    public int TotalPages => (int)Math.Ceiling((double)(TotalItems / ItemsPerPage));
 }

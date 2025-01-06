@@ -7,27 +7,53 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StoreApp.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <!-- FontAwesome -->
     @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 <body>
+    <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StoreApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="/">
+                    <i class="fas fa-shopping-cart me-2"></i>Modern Store
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link active" href="/"><i class="fas fa-home me-1"></i>Ana Sayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" href="/Home/Products"><i class="fas fa-box-open me-1"></i>Ürünler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/About"><i class="fas fa-info-circle me-1"></i>Hakkımızda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Contact"><i class="fas fa-envelope me-1"></i>İletişim</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle me-1"></i>Hesabım
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="/Account/Login"><i class="fas fa-sign-in-alt me-1"></i>Giriş Yap</a></li>
+                                <li><a class="dropdown-item" href="/Account/Register"><i class="fas fa-user-plus me-1"></i>Üye Ol</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/Account/Orders"><i class="fas fa-box me-1"></i>Siparişlerim</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link position-relative" href="/Cart">
+                                <i class="fas fa-shopping-basket me-1"></i>Sepetim
+                                <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">3</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -35,13 +61,36 @@
         </nav>
     </header>
 
-    <div class="container small"> 
-            @RenderBody() 
-    </div>
-     
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Main Content -->
+    <main class="container mt-5">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Modern Store</h5>
+                    <p>Binlerce ürünü keşfedin ve güvenle alışveriş yapın.</p>
+                    <div>
+                        <a href="https://facebook.com" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="/Home/Privacy" class="text-white text-decoration-none me-3">Gizlilik Politikası</a>
+                    <a href="/Home/Terms" class="text-white text-decoration-none">Kullanım Şartları</a>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <small>&copy; 2025 Modern Store. Tüm hakları saklıdır.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html> 

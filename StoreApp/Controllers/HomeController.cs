@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreApp.Data.Abstract;
@@ -11,40 +12,39 @@ namespace StoreApp.Controllers
         public int pageSize = 12;
         private readonly ILogger<HomeController> _logger;
         private readonly IStoreRepository _storeRepository;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IStoreRepository storeRepository)
+        public HomeController(ILogger<HomeController> logger, IStoreRepository storeRepository, IMapper mapper)
         {
             _logger = logger;
             _storeRepository = storeRepository;
+            _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(int page = 1 )
+        public async Task<IActionResult> Index(string category, int page = 1)
         {
-            var products = await _storeRepository
-                .Products
-                .Skip((page - 1) * pageSize)
-                .Select(p =>
-                new ProductViewModel
-                {
-                    ProductId = p.ProductId,
-                    Name = p.Name,
-                    Description = p.Description,
-                    Price = p.Price,
-                }).Take(pageSize).ToListAsync();
             ViewBag.currentPage = page;
             return View(new ProductListViewModel
-            { 
-                Products = products,
+            {
+                Products = _storeRepository.GetProductByCategory(category, page, pageSize)
+                .Select(product => _mapper.Map<ProductViewModel>(product)),
                 PageInfo = new PageInfo()
                 {
                     ItemsPerPage = pageSize,
-                    TotalItems = _storeRepository.Products.Count(),
-                    CurrentPage=page,
+                    CurrentPage = page,
+                    TotalItems = _storeRepository.GetProductCount(category)
                 }
             });
         }
 
-
-        
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _storeRepository.Products.Where(x => x.ProductId == id).FirstOrDefaultAsync();
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
     }
 }

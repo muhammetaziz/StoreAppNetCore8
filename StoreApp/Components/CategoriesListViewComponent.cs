@@ -15,6 +15,7 @@ namespace StoreApp.Components
 
         public IViewComponentResult Invoke()
         {
+            ViewBag.SelectedCategory=RouteData?.Values["category"];
             // var categories=_storeRepository.Categories.Select(p=>p.Name).OrderBy(i=>i);
             return View(_storeRepository.Categories.Select(c => new CategoryViewModel
             {

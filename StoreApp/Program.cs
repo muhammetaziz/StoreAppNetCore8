@@ -1,18 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using StoreApp.Data.Abstract;
 using StoreApp.Data.Concrete;
+using StoreApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 builder.Services.AddDbContext<StoreDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:StoreDbConnection"],b=>b.MigrationsAssembly("StoreApp"));
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:StoreDbConnection"], b => b.MigrationsAssembly("StoreApp"));
 });
 
-builder.Services.AddScoped<IStoreRepository,EFStoreRepository>();
+builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 
 var app = builder.Build();
 
@@ -31,8 +33,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//kategori urun listesi product/category
+app.MapControllerRoute("products_in_category", "products/{category?}", new { controller = "Home", action = "Index" });
+//urundetay product/s24
+app.MapControllerRoute("product_details", "{name}", new { controller = "Home", action = "Details" });
+
+app.MapDefaultControllerRoute();
 
 app.Run();

@@ -1,0 +1,111 @@
+﻿@model StoreApp.Data.Concrete.Product
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        .product-image {
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-new {
+            background-color: #007bff;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+            .add-to-cart-btn:hover {
+                background-color: #0056b3;
+            }
+
+        .rating i {
+            color: #ffc107;
+        }
+
+        .product-details {
+            line-height: 1.8;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Ürün Görseli -->
+            <div class="col-md-6">
+                <img src="@Model.ProductImage" alt="@Model.Name" class="img-fluid product-image">
+            </div>
+            <!-- Ürün Detayları -->
+            <div class="col-md-6">
+                <h1 class="fw-bold">@Model.Name</h1>
+                <p class="text-muted">Kategori: @Model.Categories</p>
+                <div class="d-flex align-items-center mb-3">
+                    <span class="badge badge-new">Yeni</span>
+                    <div class="ms-3 rating">
+                        @*@for (int i = 0; i < Model.Rating; i++)
+                        {
+                            <i class="bi bi-star-fill"></i>
+                        }
+                        @for (int i = Model.Rating; i < 5; i++)
+                        {
+                            <i class="bi bi-star"></i>
+                        }*@
+                    </div>
+                </div>
+                <p class="price">@Model.Price.ToString("C")</p>
+                <p class="product-details">@Model.Description</p>
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn add-to-cart-btn">
+                        <i class="bi bi-cart-plus me-2"></i> Sepete Ekle
+                    </button>
+                    <button class="btn btn-outline-secondary">
+                        <i class="bi bi-heart me-2"></i> Favorilere Ekle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ek Bilgiler -->
+        <div class="mt-5">
+            <h3 class="fw-bold">Ürün Özellikleri</h3>
+            <ul class="list-group list-group-flush">
+                @Model.Description
+                @*@foreach (var feature in Model.Features)
+                {
+                    <li class="list-group-item">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i> @feature
+                    </li>
+                }*@
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
