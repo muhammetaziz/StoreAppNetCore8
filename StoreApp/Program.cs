@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 builder.Services.AddDbContext<StoreDbContext>(options =>
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
 });
 
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -28,7 +32,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
@@ -39,5 +43,5 @@ app.MapControllerRoute("products_in_category", "products/{category?}", new { con
 app.MapControllerRoute("product_details", "{name}", new { controller = "Home", action = "Details" });
 
 app.MapDefaultControllerRoute();
-
+app.MapRazorPages();
 app.Run();

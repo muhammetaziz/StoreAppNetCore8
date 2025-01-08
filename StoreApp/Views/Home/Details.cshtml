@@ -69,24 +69,24 @@
                     <span class="badge badge-new">Yeni</span>
                     <div class="ms-3 rating">
                         @*@for (int i = 0; i < Model.Rating; i++)
-                        {
-                            <i class="bi bi-star-fill"></i>
-                        }
-                        @for (int i = Model.Rating; i < 5; i++)
-                        {
-                            <i class="bi bi-star"></i>
-                        }*@
+                            {
+                                <i class="bi bi-star-fill"></i>
+                            }
+                            @for (int i = Model.Rating; i < 5; i++)
+                            {
+                                <i class="bi bi-star"></i>
+                            }*@
                     </div>
                 </div>
                 <p class="price">@Model.Price.ToString("C")</p>
                 <p class="product-details">@Model.Description</p>
                 <div class="d-grid gap-2 mt-4">
-                    <button class="btn add-to-cart-btn">
-                        <i class="bi bi-cart-plus me-2"></i> Sepete Ekle
-                    </button>
-                    <button class="btn btn-outline-secondary">
-                        <i class="bi bi-heart me-2"></i> Favorilere Ekle
-                    </button>
+                    <form asp-page="/Cart" method="post">
+                        <input type="hidden" asp-for="@Model.ProductId" name="ProductId" />
+                        <button type="submit" class="btn add-to-cart-btn">
+                            <i class="bi bi-cart-plus me-2"></i> Sepete Ekle
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -97,11 +97,11 @@
             <ul class="list-group list-group-flush">
                 @Model.Description
                 @*@foreach (var feature in Model.Features)
-                {
-                    <li class="list-group-item">
-                        <i class="bi bi-check-circle-fill text-success me-2"></i> @feature
-                    </li>
-                }*@
+                    {
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i> @feature
+                        </li>
+                    }*@
             </ul>
         </div>
     </div>
