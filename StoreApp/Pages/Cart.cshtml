@@ -23,7 +23,7 @@
                     <div class="card mb-3 shadow-sm cart-item">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="@*@item.ProductImage*@" class="img-fluid rounded-start cart-item-image" alt="@*@item.ProductName*@">
+                                <img src=@item.Product.Name class="img-fluid rounded-start cart-item-image" alt="@item.Product.Name">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -33,14 +33,31 @@
                                         <div>
                                             <span class="fw-bold">@item.Product.Price.ToString("C")</span>
                                             <div class="mt-2">
-                                                <button class="btn btn-outline-secondary btn-sm">-</button>
+                                                <button class="btn btn-outline-secondary btn-sm"><i class="fa fa-minus" aria-hidden="true"></i></button>
                                                 <span class="mx-2">@item.Quantity</span>
 
-                                                <span>@(item.Quantity * item.Product.Price).ToString()</span>
-                                                <button class="btn btn-outline-secondary btn-sm">+</button>
+                                                <span>@(item.Quantity * item.Product.Price)</span>
+
+
+                                                <form class="form-text" style="display:block" asp-page="OnPostDecrease" method="post">
+                                                    <input type="hidden" asp-for="@item.Product.ProductId" name="id" />
+                                                    <button type="submit">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </form>
+                                                <form class="form-text" style="display:block" asp-page="/Cart" method="post">
+                                                    <input type="hidden" asp-for="@item.Product.ProductId" name="id" />
+                                                    <button type="submit">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </form>
+
                                             </div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm">Sil</button>
+                                        <form asp-page-handler="Remove" method="post">
+                                            <input type="hidden" name="id" value="@item.Product.ProductId" />
+                                            <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -61,13 +78,16 @@
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Kargo Ücreti:</span>
-                                <span>₺</span>
+                                <span>0 ₺</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between fw-bold">
                                 <span>Genel Toplam:</span>
                                 <span>@Model.Cart.CalculateTotal().ToString("C")</span>
                             </li>
                         </ul>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100">Alışverişe Devam Et</a>
+                        <br />
+                        <br />
                         <button class="btn btn-primary w-100">Ödeme Yap</button>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ using StoreApp.Data.Abstract;
 using StoreApp.Helpers;
 using StoreApp.Models;
 
-namespace StoreApp.Pages.Shared
+namespace StoreApp.Pages
 {
     public class CartModel : PageModel
     {
@@ -26,9 +26,26 @@ namespace StoreApp.Pages.Shared
             {
                 Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
                 Cart.AddItem(product, 1);
-                HttpContext.Session.SetJson("cart" ,Cart);
+                HttpContext.Session.SetJson("cart", Cart);
             }
             return RedirectToPage("/cart");
+        }
+        public IActionResult OnPostDecrease(int id)
+        {
+            Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
+            var product = Cart.Items.First(p => p.Product.ProductId == id).Product;
+            Cart?.RemoveItem(product);
+            HttpContext.Session.SetJson("cart", Cart);
+            return RedirectToPage("/cart");
+        }
+        public IActionResult OnPostRemove(int id)
+        {
+            Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
+            var product = Cart.Items.First(p => p.Product.ProductId == id).Product;
+
+            Cart?.RemoveItem(product);
+            HttpContext.Session.SetJson("cart", Cart);
+            return RedirectToPage("/cart"); 
         }
     }
 }
