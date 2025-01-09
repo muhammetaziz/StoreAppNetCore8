@@ -6,7 +6,7 @@ namespace StoreApp.Models
     {
         public List<CartItem> Items { get; set; } = new List<CartItem>();
 
-        public void AddItem(Product product, int quantity)
+        public virtual void AddItem(Product product, int quantity)
         {
             var items = Items.Where(p => p.Product.ProductId ==product.ProductId).FirstOrDefault();
 
@@ -16,16 +16,33 @@ namespace StoreApp.Models
             }
             else { items.Quantity += 1; }
         }
-        public void RemoveItem(Product product)
+        public virtual void RemoveItem(Product product)
         {
-
             Items.RemoveAll(i=>i.Product.ProductId==product.ProductId);
+            
         }
+        public virtual void DecreaseItem(Product product)
+        {
+            var item = Items.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
+
+            if (item != null)
+            {
+                if (item.Quantity > 1)
+                {
+                    item.Quantity--; // Sadece miktarı azalt
+                }
+                else
+                {
+                    Items.Remove(item); // Miktar 1 ise ürünü tamamen kaldır
+                }
+            }
+        }
+
         public decimal CalculateTotal()
         {
             return Items.Sum(i=>i.Product.Price*i.Quantity);
         }
-        public void Clear()
+        public virtual void Clear()
         {
             Items.Clear();
         }

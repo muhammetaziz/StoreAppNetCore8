@@ -10,42 +10,43 @@ namespace StoreApp.Pages
     {
         private readonly IStoreRepository _repository;
 
-        public CartModel(IStoreRepository repository)
+        public CartModel(IStoreRepository repository,CartsModel cartService)
         {
+             
             _repository = repository;
+            Cart = cartService;
         }
         public CartsModel? Cart { get; set; }
         public void OnGet()
         {
-            Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
         }
         public IActionResult OnPost(int id)
         {
             var product = _repository.Products.FirstOrDefault(x => x.ProductId == id);
             if (product != null)
             {
-                Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
-                Cart.AddItem(product, 1);
-                HttpContext.Session.SetJson("cart", Cart);
+                Cart?.AddItem(product, 1);
             }
             return RedirectToPage("/cart");
         }
-        public IActionResult OnPostDecrease(int id)
-        {
-            Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
-            var product = Cart.Items.First(p => p.Product.ProductId == id).Product;
-            Cart?.RemoveItem(product);
-            HttpContext.Session.SetJson("cart", Cart);
-            return RedirectToPage("/cart");
-        }
+          
         public IActionResult OnPostRemove(int id)
         {
-            Cart = HttpContext.Session.GetJson<CartsModel>("cart") ?? new CartsModel();
-            var product = Cart.Items.First(p => p.Product.ProductId == id).Product;
-
-            Cart?.RemoveItem(product);
-            HttpContext.Session.SetJson("cart", Cart);
+            Cart?.RemoveItem(Cart.Items.First(p => p.Product.ProductId == id).Product);
             return RedirectToPage("/cart"); 
         }
+        public IActionResult OnPostDecrease(int id)
+        {
+            var product = Cart?.Items.FirstOrDefault(p => p.Product.ProductId == id)?.Product;
+
+            if (product != null)
+            {
+                Cart?.DecreaseItem(product); // Miktarý azalt
+            }
+            return RedirectToPage("/cart");
+        }
+
+
+
     }
 }
