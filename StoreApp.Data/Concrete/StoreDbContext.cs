@@ -16,7 +16,7 @@ namespace StoreApp.Data.Concrete
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Contact> Contacts => Set<Contact>();
-
+        public DbSet<Order> Orders { get; set; }     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,6 +29,15 @@ namespace StoreApp.Data.Concrete
             modelBuilder.Entity<Category>()
                 .HasIndex(u => u.Url)
                 .IsUnique();
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.OrderItems)
+                .WithOne(oi => oi.Order)
+                .HasForeignKey(oi => oi.OrderId);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Product)
+                .WithMany()
+                .HasForeignKey(oi => oi.ProductId);
 
             modelBuilder.Entity<Product>().HasData(
                 new List<Product>() {
