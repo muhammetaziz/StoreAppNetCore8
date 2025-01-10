@@ -1,0 +1,135 @@
+﻿@model ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contact-container">
+    <section class="contact-header">
+        <h1 class="header-title">Bize Ulaşın</h1>
+        <p class="header-subtitle">Herhangi bir sorunuz veya öneriniz varsa, bizimle iletişime geçmekten çekinmeyin.</p>
+    </section>
+
+    <section class="contact-form-section">
+        <div class="form-container">
+            <h2 class="section-title">İletişim Formu</h2>
+            <form method="post" asp-action="Contact">
+                <div class="form-group">
+                    <label for="name">Adınız:</label>
+                    <input asp-for="FullName" type="text" id="name" name="name" class="form-input" placeholder="Adınızı girin" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-posta Adresiniz:</label>
+                    <input asp-for="Email" type="email" id="email" name="email" class="form-input" placeholder="E-posta adresinizi girin" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Konu:</label>
+                    <input asp-for="Subject" type="text" id="subject" name="subject" class="form-input" placeholder="Konu başlığını girin">
+                </div>
+                <div class="form-group">
+                    <label for="message">Mesajınız:</label>
+                    <textarea asp-for="Message" id="message" name="message" class="form-textarea" placeholder="Mesajınızı buraya yazın" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="form-button">Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="contact-info-section">
+        <div class="info-container">
+            <h2 class="section-title">İletişim Bilgilerimiz</h2>
+            <p><i class="fa fa-map-marker" aria-hidden="true"></i> Adres: İstanbul, Türkiye</p>
+            <p><i class="fa fa-phone" aria-hidden="true"></i> Telefon: +90 534 792 60 30</p>
+            <p><i class="fa fa-envelope" aria-hidden="true"></i> E-posta: m.aziz.aciker@gmail.com</p>
+            <a href="https://www.linkedin.com/in/muhammet-aziz-a%C3%A7iker/">
+                <p><i class="fa-brands fa-linkedin"></i>Linkedin</p>
+            </a>
+            <a href="https://github.com/muhammetaziz">
+                <p><i class="fa-brands fa-github"></i>GitHub</p>
+            </a>
+
+        </div>
+    </section>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
+        color: #333;
+    }
+
+    .header-subtitle {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    .form-container, .info-container {
+        background: #f9f9f9;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-input, .form-textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .form-button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+        .form-button:hover {
+            background: #0056b3;
+        }
+
+    .info-container p {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+
+    .info-container i {
+        color: #007bff;
+        margin-right: 0.5rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+</style>

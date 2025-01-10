@@ -33,8 +33,7 @@ namespace StoreApp.Models
             base.DecreaseItem(product); // Ana işlevi çağır
             Session?.SetJson("Cart", this); // Güncellenmiş sepeti oturuma kaydet
         }
-
-
+        
         public override void Clear()
         {
             base.Clear();

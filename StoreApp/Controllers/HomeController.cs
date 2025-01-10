@@ -13,16 +13,19 @@ namespace StoreApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IStoreRepository _storeRepository;
         private readonly IMapper _mapper;
+        private readonly CartsModel _cart;
 
-        public HomeController(ILogger<HomeController> logger, IStoreRepository storeRepository, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IStoreRepository storeRepository, IMapper mapper, CartsModel cart)
         {
             _logger = logger;
             _storeRepository = storeRepository;
             _mapper = mapper;
+            _cart = cart;
         }
 
-        public async Task<IActionResult> Index(string category, int page = 1)
+        public  IActionResult  Index(string category, int page = 1)
         {
+            ViewBag.UrunSayisi = _cart.Items.Sum(i => i.Quantity);
             ViewBag.currentPage = page;
             return View(new ProductListViewModel
             {
@@ -39,6 +42,7 @@ namespace StoreApp.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+            ViewBag.UrunSayisi = _cart.Items.Sum(i => i.Quantity);
             var product = await _storeRepository.Products.Where(x => x.ProductId == id).FirstOrDefaultAsync();
             if (product == null)
             {

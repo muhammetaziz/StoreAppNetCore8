@@ -32,16 +32,16 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <span class="fw-bold">@item.Product.Price.ToString("C")</span>
-                                            <div class="mt-2">  
+                                            <div class="mt-2">
 
-                                                <span  class="mx-2 fw-bold">@item.Quantity adet ürün</span>
+                                                <span class="mx-2 fw-bold">@item.Quantity adet ürün</span>
 
                                                 <form class="form-text" style="display:inline-block" asp-page-handler="Decrease" method="post">
                                                     <input type="hidden" asp-for="@item.Product.ProductId" name="id" />
                                                     <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="fa fa-minus" aria-hidden="true"></i></button>
                                                 </form>
 
-                                                <span>@((item.Quantity * item.Product.Price).ToString("C" ))</span> 
+                                                <span>@((item.Quantity * item.Product.Price).ToString("C" ))</span>
 
                                                 <form class="form-text" style="display:inline-block" asp-page="/Cart" method="post">
                                                     <input type="hidden" asp-for="@item.Product.ProductId" name="id" />
@@ -92,7 +92,7 @@
             </div>
         </div>
     }
-</div>
+</div> 
 
 <style>
     .cart-item {

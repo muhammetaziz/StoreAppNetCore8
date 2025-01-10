@@ -14,6 +14,7 @@ namespace StoreApp.Data.Abstract
         void CreateProduct(Product entity);
         int GetProductCount(string category);
         IEnumerable<Product> GetProductByCategory(string category,int page ,int pageSize);
+        void CreateContact(Contact entity);
 
     }
 }

@@ -44,9 +44,6 @@ namespace StoreApp.Pages
                 Cart?.DecreaseItem(product); // Miktarý azalt
             }
             return RedirectToPage("/cart");
-        }
-
-
-
+        }  
     }
 }

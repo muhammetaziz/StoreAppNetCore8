@@ -39,7 +39,20 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+
 //kategori urun listesi product/category
+app.MapControllerRoute(
+    name: "Contact",
+    pattern: "contact",
+    defaults: new { controller = "AboutContact", action = "Contact" }
+);
+
+app.MapControllerRoute(
+    name: "About",
+    pattern: "about",
+    defaults: new { controller = "AboutContact", action = "About" }
+);
 app.MapControllerRoute("products_in_category", "products/{category?}", new { controller = "Home", action = "Index" });
 //urundetay product/s24
 app.MapControllerRoute("product_details", "{name}", new { controller = "Home", action = "Details" });

@@ -21,6 +21,11 @@ namespace StoreApp.Data.Concrete
 
         public IQueryable<Category> Categories => _context.Categories;
 
+        public void CreateContact(Contact entity)
+        {
+            _context.Contacts.Add(entity);
+            _context.SaveChanges();
+        }
 
         public void CreateProduct(Product entity)
         {

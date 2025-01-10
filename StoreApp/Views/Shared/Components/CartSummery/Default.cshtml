@@ -1,0 +1,8 @@
+﻿@model CartsModel
+
+@if (Model?.Items.Count() > 0)
+{
+    <small class="text-white">
+    @Model.Items.Sum(i => i.Quantity) adet ürün 
+    @Model.CalculateTotal() </small>
+} 
