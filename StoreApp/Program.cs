@@ -53,6 +53,11 @@ app.MapControllerRoute(
     pattern: "about",
     defaults: new { controller = "AboutContact", action = "About" }
 );
+app.MapControllerRoute(
+    name: "Checkout",
+    pattern: "checkout",
+    defaults: new { controller = "Order", action = "Checkout" }
+);
 app.MapControllerRoute("products_in_category", "products/{category?}", new { controller = "Home", action = "Index" });
 //urundetay product/s24
 app.MapControllerRoute("product_details", "{name}", new { controller = "Home", action = "Details" });
