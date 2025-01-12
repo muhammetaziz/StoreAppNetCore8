@@ -2,11 +2,7 @@
 @model CartModel
 
 
-<h2> Alışveriş sepeti</h2>
-
 <div class="container mt-5">
-    <h1 class="text-center mb-4 fw-bold">Sepetim</h1>
-
     @if (!Model.Cart.Items.Any())
     {
         <div class="alert alert-warning text-center" role="alert">
@@ -17,13 +13,16 @@
     {
         <div class="row">
             <!-- Ürün Listesi -->
-            <div class="col-md-8">
+            <div class="col-md-8 payment-container">
+                <div class="payment-header">
+                    <h2>Sepetim</h2>
+                </div>
                 @foreach (var item in Model.Cart.Items)
                 {
                     <div class="card mb-3 shadow-sm cart-item">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src=@item.Product.Name class="img-fluid rounded-start cart-item-image" alt="@item.Product.Name">
+                                <img src=@item.Product.ProductImage class="img-fluid rounded-start cart-item-image" alt="@item.Product.Name">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -86,15 +85,31 @@
                         <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100">Alışverişe Devam Et</a>
                         <br />
                         <br />
-                        <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary w-100">Ödeme Yap</a>
+                        @if (Model.Cart.Items.Any())
+                        {
+                            <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary w-100">Ödeme Yap</a>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     }
-</div> 
+</div>
 
 <style>
+    .payment-container {
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .payment-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
     .cart-item {
         border: none;
     }

@@ -1,0 +1,60 @@
+﻿@page
+
+@model StoreApp.Pages.ComplatedModel
+@{
+}
+
+<body>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="order-success text-center">
+                    <i class="success-icon bi bi-check-circle-fill"></i>
+                    <h2 class="mt-4">Thank You for Your Order!</h2>
+                    <p>Your order has been placed successfully. A confirmation email has been sent to your registered email address.</p>
+
+                    <div class="order-details text-start">
+                        <h4>Order Summary</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Order ID:</span>
+                                <span>@OrderId</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Order Date:</span>
+                                <span>31 December 2024</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total Amount:</span>
+                                <span>$120.50</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="/" class="btn btn-primary btn-home">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body> 
+<style>
+    .order-success {
+        background-color: #f8f9fa;
+        padding: 50px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .success-icon {
+        font-size: 80px;
+        color: #28a745;
+    }
+
+    .order-details {
+        margin-top: 20px;
+    }
+
+    .btn-home {
+        margin-top: 30px;
+    }
+</style>
