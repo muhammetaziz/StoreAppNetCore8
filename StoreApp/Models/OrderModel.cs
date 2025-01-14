@@ -16,5 +16,11 @@ namespace StoreApp.Models
         [BindNever]
         public CartsModel? CartsModel { get; set; } =null!;
 
+        // Payment
+        public string? CartName { get; set; }
+        public string? CartNumber { get; set; }
+        public string? ExpriationMonth { get; set; }
+        public string? ExpriationYear { get; set; }
+        public string? CVV { get; set; }
     }
 }
