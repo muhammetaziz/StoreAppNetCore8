@@ -19,12 +19,12 @@ namespace StoreApp.Pages
 
         public Order? Order { get; set; }
 
-        public void OnGet()
-        {
-            if (!string.IsNullOrEmpty(OrderId))
-            {
-                Order = _OrderRepository.GetOrderById(OrderId);
-            }
-        }
+        //public void OnGet()
+        //{
+        //    if (!string.IsNullOrEmpty(OrderId))
+        //    {
+        //        Order = _OrderRepository.GetOrderById(OrderId);
+        //    }
+        //}
     }
 }

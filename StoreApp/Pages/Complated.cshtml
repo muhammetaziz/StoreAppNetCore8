@@ -1,32 +1,30 @@
 ﻿@page
-
-@model StoreApp.Pages.ComplatedModel
+@model StoreApp.Pages.ComplatedModel 
 @{
 }
-
 <body>
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="order-success text-center">
                     <i class="success-icon bi bi-check-circle-fill"></i>
-                    <h2 class="mt-4">Thank You for Your Order!</h2>
-                    <p>Your order has been placed successfully. A confirmation email has been sent to your registered email address.</p>
+                    <h2 class="mt-4">Siparişiniz için teşekkürler!</h2>
+                    <p>Siparişiniz en kısa süre içerisinde sizlere ulaşturulacaktır. Fatura bilgisi  E-posta adresinize iletilmiştir.</p>
 
                     <div class="order-details text-start">
-                        <h4>Order Summary</h4>
+                        <h4>Sipariş bilgileri</h4>
                         <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Order ID:</span>
-                                <span>@OrderId</span>
+                            <li  class="list-group-item d-flex justify-content-between">
+                                <span>Sipariş ID:</span>
+                                <span>@Model.OrderId</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Order Date:</span>
-                                <span>31 December 2024</span>
+                                <span>Sipariş Tarihi:</span>
+                                <span></span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Total Amount:</span>
-                                <span>$120.50</span>
+                            <li hidden="hidden" class="list-group-item d-flex justify-content-between">
+                                <span>Toplam Ödeme:</span>
+                                <span>$124.58</span>
                             </li>
                         </ul>
                     </div>
@@ -36,7 +34,8 @@
             </div>
         </div>
     </div>
-</body> 
+</body>
+ 
 <style>
     .order-success {
         background-color: #f8f9fa;

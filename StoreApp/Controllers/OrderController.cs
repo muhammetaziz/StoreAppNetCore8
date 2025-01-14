@@ -39,8 +39,8 @@ namespace StoreApp.Controllers
                     Email = orderModel.Email,
                     Phone = orderModel.Phone,
                     City = orderModel.City,
-                    
-                    OrderItems = cart.Items.Select(i => new OrderItem()
+
+                    OrderItems = cart.Items.Select(i => new OrderItem
                     {
                         ProductId = i.Product.ProductId,
                         Price = (double)i.Product.Price,
@@ -49,7 +49,7 @@ namespace StoreApp.Controllers
                 };
                 _orderRepository.SaveOrder(order);
                 cart.Clear();
-                return RedirectToPage("/Complated", new {OrderId=order.OrderId});
+                return RedirectToPage("/Complated", new { ID = order.OrderId });
             }
             else
             {
@@ -58,5 +58,6 @@ namespace StoreApp.Controllers
             }
 
         }
+
     }
 }

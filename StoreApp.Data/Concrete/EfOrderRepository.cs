@@ -17,16 +17,16 @@ namespace StoreApp.Data.Concrete
         }
 
         public IQueryable<Order> Orders => _context.Orders;
-
-        public Order GetOrderById(int orderId)
-        {
-            return _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
-        }
-
+         
         public void SaveOrder(Order order)
         {
             _context.Orders.AddAsync(order);
             _context.SaveChangesAsync();
+        }
+        
+        public Order GetOrderById(int orderId)
+        {
+            return _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
         }
     }
 }
